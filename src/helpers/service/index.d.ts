@@ -9,13 +9,14 @@ export interface ServiceProps {
   loading?: boolean;
   url?: string;
 
-  setData: SetData;
-  setLoading: SetLoading;
+  setData?: SetData;
+  setLoading?: SetLoading;
 }
 
 declare function Service(props: ServiceProps): ServiceResult;
 
 export interface ServiceResult {
+  all<T>(values: (T | Promise<T>)[]): Promise<T[]>;
   get: RequestResult;
   post: RequestResult;
   put: RequestResult;

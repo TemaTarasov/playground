@@ -13,6 +13,7 @@ export interface RequestOptions extends AxiosRequestConfig {
   applyData?: boolean;
   data?: any;
   dataPath?: string;
+  identity?: string;
   prefix?: string;
   silent?: boolean;
   single?: boolean;

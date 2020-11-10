@@ -1,7 +1,7 @@
 import { useMemo, useState } from 'react';
 import { ServiceProps, ServiceResult, HookServiceResult } from './index.d';
 
-import { Method } from 'axios';
+import axios, { Method } from 'axios';
 
 import Request, { useRequest } from '../request';
 
@@ -25,6 +25,7 @@ export function useService(props: Omit<ServiceProps, 'setData' | 'setLoading'>):
       loading,
       setLoading,
 
+      all: axios.all,
       get: getFn,
       post: postFn,
       put: putFn,
@@ -34,8 +35,8 @@ export function useService(props: Omit<ServiceProps, 'setData' | 'setLoading'>):
   );
 }
 
-export default function Service(props: Omit<ServiceProps, 'data' | 'loading'>): ServiceResult {
-  const { url, identity, setData, setLoading } = props;
+export default function Service(props: Omit<ServiceProps, 'data' | 'loading'> = {}): ServiceResult {
+  const { url, identity, setData = () => {}, setLoading = () => {} } = props;
 
   const baseRequest = (type: Method) => Request({ type, url, identity, setData, setLoading });
 
@@ -43,6 +44,7 @@ export default function Service(props: Omit<ServiceProps, 'data' | 'loading'>): 
     setData,
     setLoading,
 
+    all: axios.all,
     get: baseRequest('get'),
     post: baseRequest('post'),
     put: baseRequest('put'),

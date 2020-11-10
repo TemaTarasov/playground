@@ -16,13 +16,14 @@ export function useRequest(props: Omit<RequestProps, 'type'>): HookRequestResult
 }
 
 export default function Request(props: RequestProps): RequestResult {
-  const { url: __url, identity, type, setData, setLoading } = props;
+  const { url: __url, identity: __identity, type, setData, setLoading } = props;
 
   return function (options: RequestOptions = {}) {
     const {
       applyData = type === 'get',
       data,
       dataPath = '',
+      identity = __identity,
       prefix,
       silent = type !== 'get',
       single,
