@@ -1,5 +1,8 @@
 import { AxiosPromise, AxiosRequestConfig, Method } from 'axios';
 
+export type SetData = (data: any) => void;
+export type SetLoading = (loading: boolean) => void;
+
 export interface RequestProps {
   identity?: string;
   type: Method;
@@ -21,6 +24,9 @@ export interface RequestOptions extends AxiosRequestConfig {
   url?: string;
 
   mapper?: (data: any) => any;
+
+  setData?: SetData;
+  setLoading?: SetLoading;
 }
 
 export type RequestResult = (options?: RequestOptions) => AxiosPromise;

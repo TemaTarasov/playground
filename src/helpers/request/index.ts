@@ -31,6 +31,9 @@ export default function Request(props: RequestProps): RequestResult {
       url: _url = __url,
 
       mapper,
+      setData: _setData = setData,
+      setLoading: _setLoading = setLoading,
+
       ...rest
     } = options;
 
@@ -50,7 +53,7 @@ export default function Request(props: RequestProps): RequestResult {
     }
 
     if (!silent) {
-      setLoading(true);
+      _setLoading(true);
     }
 
     // @ts-ignore
@@ -61,11 +64,11 @@ export default function Request(props: RequestProps): RequestResult {
         const result = mapper ? mapper(data) : get(data, dataPath, data);
 
         if (applyData) {
-          setData(result);
+          _setData(result);
         }
 
         if (!silent) {
-          setLoading(false);
+          _setLoading(false);
         }
 
         return result;
@@ -78,7 +81,7 @@ export default function Request(props: RequestProps): RequestResult {
         delete window[marker];
 
         if (!silent) {
-          setLoading(false);
+          _setLoading(false);
         }
 
         return Promise.reject(err);
